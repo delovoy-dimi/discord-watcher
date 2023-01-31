@@ -1,0 +1,6 @@
+/node_modules
+/deploy.ps1
+/.env.local
+/yarn.lock
+/subscribers.json
+/package-lock.json
