@@ -12,6 +12,8 @@ The tool monitors Discord channels and sends notifications to Telegram bot
 
   - `TG_BOT_TOKEN` can be obtained from [BotFather](https://t.me/BotFather)
   - `DISCORD_ACCESS_TOKEN` is an authorization token for Discord API actions. Can be peeked via DevTools of a Discord Web version. When a user is logged in all their requests have this token in `authorization` header
+![image](https://user-images.githubusercontent.com/123946175/219636681-c603aa81-7d78-4f9b-bb1a-5430e8b8ff0f.png)
+
   - `DISCORD_CHANNEL_ID` numeric id of the channel
   - `EXCEPTION_LOGGER_TG_ID` Telegram user id who will receive the error logs
 
