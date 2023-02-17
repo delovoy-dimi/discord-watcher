@@ -1,5 +1,6 @@
 import { promises as fs } from 'fs'
 import TelegramBot from 'node-telegram-bot-api'
+import './loadEnv.js'
 
 const subsFile = 'subscribers.json'
 

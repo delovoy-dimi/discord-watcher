@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { logException, notifySubscribers } from './tg-bot-setup.js'
+import './loadEnv.js'
 
 const discordToken = process.env.DISCORD_ACCESS_TOKEN
 const channelId = process.env.DISCORD_CHANNEL_ID
