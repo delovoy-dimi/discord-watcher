@@ -7,6 +7,7 @@ const channelId = process.env.DISCORD_CHANNEL_ID
 const requestDelay = process.env.DISCORD_CHANNEL_PROBE_DELAY
 
 let lastReportedMsgId = 0
+const msgContentHash = {}
 
 export const startChannelMonitoring = async () => {
   try {
@@ -35,13 +36,24 @@ const getLatestDiscordChanelMessages = async (latestCount) => {
   ).data
 }
 
+const filterNotReportedMessages = (messages) => {
+  const messagesToReport = messages.filter((m) => m.id > lastReportedMsgId || hashCode(m.content) != msgContentHash[m.id])
+  lastReportedMsgId = messagesToReport[0]?.id ? Math.max(messagesToReport[0]?.id, lastReportedMsgId) : lastReportedMsgId
+  messages.forEach((m) => (msgContentHash[m.id] = hashCode(m.content)))
+  return messagesToReport
+}
+
 const getMessagesToReport = async () => {
   const latestMessages = await getLatestDiscordChanelMessages(5)
-  const messagesToReport = latestMessages.filter((m) => m.id > lastReportedMsgId)
-  lastReportedMsgId = messagesToReport[0]?.id ?? lastReportedMsgId
-  return messagesToReport
+  return filterNotReportedMessages(latestMessages)
 }
 
 const formatMessage = (messages) => {
   return `${messages.reduce((prev, curr) => prev + `\n[${new Date(curr.timestamp).toLocaleString()}] ${curr.author.username}: ${curr.content}`, '')}`
 }
+
+const hashCode = (s) =>
+  s.split('').reduce((a, b) => {
+    a = (a << 5) - a + b.charCodeAt(0)
+    return a & a
+  }, 0)
