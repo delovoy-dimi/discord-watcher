@@ -49,7 +49,18 @@ const getMessagesToReport = async () => {
 }
 
 const formatMessage = (messages) => {
-  return `${messages.reduce((prev, curr) => prev + `\n[${new Date(curr.timestamp).toLocaleString()}] ${curr.author.username}: ${curr.content}`, '')}`
+  return `${messages.reduce(
+    (prev, curr) =>
+      prev +
+      `\n[${new Date(curr.timestamp).toLocaleString()}] ${curr.author.username}: ${curr.content}${
+        curr.attachments?.length ? parsedAttachments(curr.attachments) : ''
+      }`,
+    ''
+  )}`
+}
+
+const parsedAttachments = (attachments) => {
+  return attachments.reduce((prev, curr) => prev + `\n${curr.url}`, '\n[Attachments]:')
 }
 
 const hashCode = (s) =>
