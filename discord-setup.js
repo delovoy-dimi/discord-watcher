@@ -26,14 +26,19 @@ export const startChannelMonitoring = async () => {
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 
 const getLatestDiscordChanelMessages = async (latestCount) => {
-  var url = `https://discord.com/api/v9/channels/${channelId}/messages?limit=${latestCount}`
-  return (
-    await axios.get(url, {
-      headers: {
-        authorization: discordToken,
-      },
-    })
-  ).data
+  try {
+    var url = `https://discord.com/api/v9/channels/${channelId}/messages?limit=${latestCount}`
+    return (
+      await axios.get(url, {
+        headers: {
+          authorization: discordToken,
+        },
+      })
+    ).data
+  } catch (e) {
+    logException(`Request failed: ${e.message}`)
+    return []
+  }
 }
 
 const filterNotReportedMessages = (messages) => {
