@@ -10,16 +10,16 @@ let lastReportedMsgId = 0
 const msgContentHash = {}
 
 export const startChannelMonitoring = async () => {
-  try {
-    while (true) {
+  while (true) {
+    try {
       const messages = await getMessagesToReport()
       const formattedMessage = formatMessage(messages)
       if (formattedMessage) await notifySubscribers(formattedMessage)
 
       await delay(requestDelay)
+    } catch (e) {
+      logException(`ChannelMonitoring failed with ${e.message}`)
     }
-  } catch (e) {
-    logException(`ChannelMonitoring failed with ${e.message}`)
   }
 }
 
