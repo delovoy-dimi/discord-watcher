@@ -3,12 +3,14 @@ import { startChannelMonitoring } from './discord-setup.js'
 
 const discordSettings = {
   channelOne: {
+    name: 'channelOne-name',
     discordToken: 'qwe',
     channelId: 'qwe',
     requestDelay: 5000,
     context: { lastReportedMsgId: 0, msgContentHash: {} },
   },
   channelTwo: {
+    name: 'channelTwo-name',
     discordToken: 'qwe',
     channelId: 'qwe',
     requestDelay: 5000,

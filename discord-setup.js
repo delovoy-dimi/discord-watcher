@@ -7,7 +7,7 @@ export const startChannelMonitoring = async (settings) => {
     try {
       const messages = await getMessagesToReport(settings)
       const formattedMessage = formatMessage(messages)
-      if (formattedMessage) await notifySubscribers(formattedMessage)
+      if (formattedMessage) await notifySubscribers(`${settings.name}\n${formattedMessage}`)
 
       await delay(settings.requestDelay)
     } catch (e) {
