@@ -16,7 +16,7 @@ export const startChannelMonitoring = async (settings) => {
   }
 }
 
-const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
+export const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 
 const getLatestDiscordChanelMessages = async (settings, latestCount) => {
   try {
