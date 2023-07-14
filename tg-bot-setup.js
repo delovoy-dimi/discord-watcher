@@ -34,10 +34,14 @@ export const notifySubscribers = async (message) => {
   try {
     const subs = JSON.parse(await fs.readFile(subsFile))
     subs.forEach((chatId) => {
-      if (chatId) bot.sendMessage(chatId, message)
+      try {
+        if (chatId) bot.sendMessage(chatId, message)
+      } catch (e) {
+        logException(`subscriber:${chatId} -- bot.sendMessage error: ${e.message}`)
+      }
     })
   } catch (e) {
-    logException(`notifySubscribers error: ${e.message}`)
+    logException(`notifySubscribers generic error: ${e.message}`)
   }
 }
 
